@@ -12,16 +12,16 @@ import { Copy, Eye, EyeOff, Key, Plus, RotateCcw, Trash2 } from "lucide-react"
 const apiKeys = [
   {
     id: 1,
-    name: "Production API Key",
-    key: "prod-key",
+    name: "Production",
+    key: "prod",
     created: "2024-01-15",
     lastUsed: "2 hours ago",
     status: "active",
   },
   {
     id: 2,
-    name: "Development API Key",
-    key: "test-key",
+    name: "Development",
+    key: "test",
     created: "2024-01-10",
     lastUsed: "1 day ago",
     status: "active",
