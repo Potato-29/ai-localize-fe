@@ -13,7 +13,7 @@ const apiKeys = [
   {
     id: 1,
     name: "Production API Key",
-    key: "sk_live_1234567890abcdef1234567890abcdef",
+    key: "prod-key",
     created: "2024-01-15",
     lastUsed: "2 hours ago",
     status: "active",
@@ -21,7 +21,7 @@ const apiKeys = [
   {
     id: 2,
     name: "Development API Key",
-    key: "sk_test_abcdef1234567890abcdef1234567890",
+    key: "test-key",
     created: "2024-01-10",
     lastUsed: "1 day ago",
     status: "active",
