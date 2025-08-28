@@ -1,3 +1,4 @@
+"use client"
 import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { DashboardHeader } from "@/components/dashboard/dashboard-header"
@@ -5,13 +6,16 @@ import { UsageOverview } from "@/components/dashboard/usage-overview"
 import { UsageCharts } from "@/components/dashboard/usage-charts"
 import { RecentActivity } from "@/components/dashboard/recent-activity"
 import { ApiKeyManagement } from "@/components/dashboard/api-key-management"
+import { useCurrentUser } from "@/hooks/get-current-user"
 
-export const metadata: Metadata = {
-  title: "Dashboard - AI Localization SDK",
-  description: "Monitor your AI localization usage, manage API keys, and view analytics",
-}
+// export const metadata: Metadata = {
+//   title: "Dashboard - AI Localization SDK",
+//   description: "Monitor your AI localization usage, manage API keys, and view analytics",
+// }
 
 export default function DashboardPage() {
+  const user = useCurrentUser()
+console.log(user)
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

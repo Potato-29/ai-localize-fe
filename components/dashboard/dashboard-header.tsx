@@ -12,7 +12,7 @@ export function DashboardHeader() {
       </div>
 
       <div className="flex items-center gap-4 mt-4 sm:mt-0">
-        <Badge variant="secondary" className="flex items-center gap-1">
+        <Badge variant="outline" className="flex items-center gap-1">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
           Free Plan
         </Badge>

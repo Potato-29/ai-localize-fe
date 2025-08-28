@@ -1,11 +1,10 @@
-"use client"
-
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Copy, Play, CheckCircle } from "lucide-react"
+"use client";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Copy, Play, CheckCircle } from "lucide-react";
 
 const codeExamples = {
   basic: `import { AILocalizationSDK } from 'ai-localize-sdk';
@@ -18,7 +17,7 @@ const result = await sdk.localize('Hello world', {
   targetLocale: 'es'
 });
 
-console.log(result.text); // "Hola mundo"`,
+console.log(result.translatedText); // "Hola mundo"`,
 
   object: `// Translate objects
 const objResult = await sdk.localize({
@@ -56,16 +55,16 @@ console.log(batchResult);
 //   { text: 'Au revoir', locale: 'fr' },
 //   { text: 'Danke', locale: 'de' }
 // ]`,
-}
+};
 
 export function DemoSection() {
-  const [copiedCode, setCopiedCode] = useState<string | null>(null)
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const copyCode = (code: string, type: string) => {
-    navigator.clipboard.writeText(code)
-    setCopiedCode(type)
-    setTimeout(() => setCopiedCode(null), 2000)
-  }
+    navigator.clipboard.writeText(code);
+    setCopiedCode(type);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
 
   return (
     <section className="py-20">
@@ -75,10 +74,12 @@ export function DemoSection() {
             <Play className="w-3 h-3 mr-1" />
             Live Demo
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">See it in action</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            See it in action
+          </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Interactive code playground showing how easy it is to integrate AI-powered localization into your
-            applications.
+            Interactive code playground showing how easy it is to integrate
+            AI-powered localization into your applications.
           </p>
         </div>
 
@@ -89,7 +90,9 @@ export function DemoSection() {
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="ml-4 text-sm font-mono text-muted-foreground">ai-localization-demo.js</span>
+                <span className="ml-4 text-sm font-mono text-muted-foreground">
+                  ai-localization-demo.js
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -139,5 +142,5 @@ export function DemoSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

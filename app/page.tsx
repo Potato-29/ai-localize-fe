@@ -4,7 +4,7 @@ import { FeaturesSection } from "@/components/features-section"
 import { DemoSection } from "@/components/demo-section"
 import { UseCasesSection } from "@/components/use-cases-section"
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <div className="min-h-screen">
       <Navigation />
