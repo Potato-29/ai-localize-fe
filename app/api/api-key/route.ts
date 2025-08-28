@@ -64,6 +64,10 @@ export async function GET(req: NextRequest) {
   try {
     const userId = req.nextUrl.searchParams.get("userId");
 
+    if (!userId) {
+      return NextResponse.json({ error: "Missing userId" }, { status: 400 });
+    }
+
     const keys = await db
       .select()
       .from(apiKeys)

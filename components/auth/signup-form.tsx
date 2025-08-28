@@ -1,22 +1,24 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Loader2 } from "lucide-react"
-import Link from "next/link"
-import { Formik, Form, Field, ErrorMessage } from "formik"
-import { signupValidationSchema } from "@/app/validations/signup-validations"
-
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { signupValidationSchema } from "@/app/validations/signup-validations";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function SignupForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  const navigator = useRouter();
   return (
     <Formik
       initialValues={{
@@ -28,8 +30,8 @@ export function SignupForm() {
       }}
       validationSchema={signupValidationSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        setIsLoading(true)
-        setError("")
+        setIsLoading(true);
+        setError("");
         try {
           const response = await fetch("/api/signup", {
             method: "POST",
@@ -42,19 +44,20 @@ export function SignupForm() {
             headers: {
               "Content-Type": "application/json",
             },
-          })
+          });
           if (!response.ok) {
-            const data = await response.json()
-            setError(data.error || "Something went wrong")
+            const data = await response.json();
+            setError(data.error || "Something went wrong");
           } else {
             // Handle successful signup
-            console.log("Signup successful")
+            navigator.push("/login");
+            toast.success("Signup successful");
           }
         } catch (err) {
-          setError("Something went wrong")
+          setError("Something went wrong");
         }
-        setIsLoading(false)
-        setSubmitting(false)
+        setIsLoading(false);
+        setSubmitting(false);
       }}
     >
       {({ isSubmitting, values, setFieldValue }) => (
@@ -76,7 +79,11 @@ export function SignupForm() {
                 required
                 disabled={isLoading}
               />
-              <ErrorMessage name="firstName" component="div" className="text-xs text-red-500" />
+              <ErrorMessage
+                name="firstName"
+                component="div"
+                className="text-xs text-red-500"
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="lastName">Last name</Label>
@@ -88,7 +95,11 @@ export function SignupForm() {
                 required
                 disabled={isLoading}
               />
-              <ErrorMessage name="lastName" component="div" className="text-xs text-red-500" />
+              <ErrorMessage
+                name="lastName"
+                component="div"
+                className="text-xs text-red-500"
+              />
             </div>
           </div>
 
@@ -103,7 +114,11 @@ export function SignupForm() {
               required
               disabled={isLoading}
             />
-            <ErrorMessage name="email" component="div" className="text-xs text-red-500" />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-xs text-red-500"
+            />
           </div>
 
           <div className="space-y-2">
@@ -117,9 +132,14 @@ export function SignupForm() {
               required
               disabled={isLoading}
             />
-            <ErrorMessage name="password" component="div" className="text-xs text-red-500" />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="text-xs text-red-500"
+            />
             <p className="text-xs text-muted-foreground">
-              Must be at least 8 characters with uppercase, lowercase, and numbers
+              Must be at least 8 characters with uppercase, lowercase, and
+              numbers
             </p>
           </div>
 
@@ -127,7 +147,9 @@ export function SignupForm() {
             <Checkbox
               id="terms"
               checked={values.acceptTerms}
-              onCheckedChange={(checked) => setFieldValue("acceptTerms", checked)}
+              onCheckedChange={(checked) =>
+                setFieldValue("acceptTerms", checked)
+              }
               disabled={isLoading}
             />
             <Label
@@ -144,7 +166,11 @@ export function SignupForm() {
               </Link>
             </Label>
           </div>
-          <ErrorMessage name="acceptTerms" component="div" className="text-xs text-red-500" />
+          <ErrorMessage
+            name="acceptTerms"
+            component="div"
+            className="text-xs text-red-500"
+          />
 
           <Button
             type="submit"
@@ -156,10 +182,11 @@ export function SignupForm() {
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            By creating an account, you'll receive a verification email to activate your account.
+            By creating an account, you'll receive a verification email to
+            activate your account.
           </p>
         </Form>
       )}
     </Formik>
-  )
+  );
 }

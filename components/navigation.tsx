@@ -4,14 +4,25 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import { Menu, X } from "lucide-react";
+import { LogOutIcon, Menu, X } from "lucide-react";
 import { useCurrentUser } from "@/hooks/get-current-user";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useStore } from "@/app/store/store";
+import { destroyCookie } from "nookies";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const { isLoggedIn } = useCurrentUser();
+  const { logout } = useStore();
+  const navigator = useRouter();
+
+  const handleLogout = () => {
+    navigator.push("/");
+    destroyCookie(null, "token");
+    logout();
+  };
+
   return (
     <nav className="border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,6 +88,16 @@ export function Navigation() {
 
           <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
+            {isLoggedIn && (
+              <Button
+                variant="ghost"
+                className="hover:bg-red-500! hover:text-white"
+                size="sm"
+                onClick={() => handleLogout()}
+              >
+                <LogOutIcon />
+              </Button>
+            )}
             {isLoggedIn === false && (
               <>
                 <Link href="/login">
